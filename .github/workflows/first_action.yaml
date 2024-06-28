@@ -1,0 +1,58 @@
+name: First CICD
+on: [push, pull_request]
+
+env:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Install deprndencies
+        run: |
+            npm install -g express-generator
+            npm install express 
+            npm install
+            npm install --save-dev jest supertest
+
+      - name: Run linters
+        id: linter
+        uses: wearerequired/lint-action@v2
+        continue-on-error: true
+        with:
+          eslint: true
+
+      - name: Run build
+        id: build
+        continue-on-error: true
+        run: npm run build --if-present
+        
+
+      - name: Run test
+        id: test
+        continue-on-error: true
+        run: npm test
+
+      - name: Archive Artifact
+        id: archive-artifact
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: hello-artifact
+          path: archive_folder
+          
+      
+      # - name: Run the app
+      #   run: node app.js
