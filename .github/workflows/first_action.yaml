@@ -71,12 +71,12 @@ jobs:
             #### build \`${{steps.build.outcome}}\`
             #### artifact \`${{steps.artifact.outcome}}\`          
 
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number, //PR ID 
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: body
-            })
+            # await github.rest.issues.createComment({
+            #   issue_number: context.issue.number, //PR ID 
+            #   owner: context.repo.owner,
+            #   repo: context.repo.repo,
+            #   body: body
+            # })
       
       # - name: Run the app
       #   run: node app.js
