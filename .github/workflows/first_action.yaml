@@ -52,7 +52,31 @@ jobs:
         with:
           name: hello-artifact
           path: archive_folder
-          
+
+      - name: update Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            console.log(context.issue.number)
+            console.log(context.issue)
+            console.log(${{ steps.linter}})
+            console.log(${{ steps.test}})
+            console.log(${{ steps.build}})
+            console.log(${{ steps. archive-artifact}})
+            const body = `**Welcome**, new contributor!`
+
+            *Pusher: @${{github.actor}}, workflow: ${{github.workflow}}
+            #### Lint \`${{steps.lint.outcome}}\`
+            #### test \`${{steps.test.outcome}}\`
+            #### build \`${{steps.build.outcome}}\`
+            #### artifact \`${{steps.artifact.outcome}}\`          
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number, //PR ID 
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            })
       
       # - name: Run the app
       #   run: node app.js
