@@ -46,7 +46,7 @@ jobs:
         run: npm test
 
       - name: Archive Artifact
-        id: archive-artifact
+        id: archive_artifact
         uses: actions/upload-artifact@v4
         continue-on-error: true
         with:
@@ -62,7 +62,7 @@ jobs:
             console.log(${{ steps.linter}})
             console.log(${{ steps.test}})
             console.log(${{ steps.build}})
-            console.log(${{ steps.archive-artifact}})
+            console.log(${{ steps.archive_artifact}})
             const body = `**Welcome**, new contributor!`
 
             #*Pusher: @${{github.actor}}, workflow: ${{github.workflow}}
