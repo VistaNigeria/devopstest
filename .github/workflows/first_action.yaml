@@ -65,7 +65,7 @@ jobs:
             console.log(${{ steps.archive_artifact}})
             const body = `**Welcome**, new contributor!`
 
-            #*Pusher: @${{github.actor}}, workflow: ${{github.workflow}}
+            *Pusher: @${{github.actor}}, workflow: ${{github.workflow}}
             #### Lint \`${{steps.lint.outcome}}\`
             #### test \`${{steps.test.outcome}}\`
             #### build \`${{steps.build.outcome}}\`
