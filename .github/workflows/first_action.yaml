@@ -57,19 +57,21 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            console.log(context.issue.number)
-            console.log(context.issue)
-            console.log(${{ steps.linter}})
-            console.log(${{ steps.test}})
-            console.log(${{ steps.build}})
-            console.log(${{ steps.archive_artifact}})
-            const body = `**Welcome**, new contributor!`
+            # console.log(context.issue.number)
+            # console.log(context.issue)
+            # console.log(${{ steps.linter}})
+            # console.log(${{ steps.test}})
+            # console.log(${{ steps.build}})
+            # console.log(${{ steps.archive_artifact}})
+            # const body = `**Welcome**, new contributor!`
+            console.log($GITHUB_RUN_ID)
+            console.log($GITHUB_RUN_NUMBER)
 
             *Pusher: @${{github.actor}}, workflow: ${{github.workflow}}
-            #### Lint \`${{steps.lint.outcome}}\`
+            #### Lint \`${{steps.linter.outcome}}\`
             #### test \`${{steps.test.outcome}}\`
             #### build \`${{steps.build.outcome}}\`
-            #### artifact \`${{steps.artifact.outcome}}\`          
+            #### artifact \`${{steps.archive_artifact.outcome}}\`          
 
             # await github.rest.issues.createComment({
             #   issue_number: context.issue.number, //PR ID 
