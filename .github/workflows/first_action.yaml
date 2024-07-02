@@ -67,11 +67,11 @@ jobs:
             console.log($GITHUB_RUN_ID)
             console.log($GITHUB_RUN_NUMBER)
 
-            *Pusher: @${{github.actor}}, workflow: ${{github.workflow}}
-            #### Lint \`${{steps.linter.outcome}}\`
-            #### test \`${{steps.test.outcome}}\`
-            #### build \`${{steps.build.outcome}}\`
-            #### artifact \`${{steps.archive_artifact.outcome}}\`          
+            # *Pusher: @${{github.actor}}, workflow: ${{github.workflow}}
+            # #### Lint \`${{steps.linter.outcome}}\`
+            # #### test \`${{steps.test.outcome}}\`
+            # #### build \`${{steps.build.outcome}}\`
+            # #### artifact \`${{steps.archive_artifact.outcome}}\`          
 
             # await github.rest.issues.createComment({
             #   issue_number: context.issue.number, //PR ID 
