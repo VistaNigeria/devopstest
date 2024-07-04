@@ -6,7 +6,6 @@ on:
     branches: [ main ]
 
 env:
-    github_token: ${{ secrets.GITHUB_TOKEN }}
     GITHUB_RUN_ID: ${{github.run_id}}
     GITHUB_RUN_NUMBER: ${{github.run_number}}
     GITHUB_ACTOR: ${{github.actor}}
@@ -39,6 +38,7 @@ jobs:
         uses: super-linter/super-linter@v6.6.0
         continue-on-error: true
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_JAVASCRIPT_ES: true
           VALIDATE_HTML: true
@@ -48,13 +48,10 @@ jobs:
         continue-on-error: true
         run: npm run build --if-present
         
-
       - name: Run test
         id: test
         continue-on-error: true
         run: npm run test
-
-
 
       - name: Archive Artifact
         id: archive_artifact
@@ -78,14 +75,7 @@ jobs:
             echo "Run ID: $GITHUB_RUN_ID";
             echo "Run NUmber: $GITHUB_RUN_NUMBER";
             echo "Actor: $GITHUB_ACTOR";
-            echo "Workflow: $GITHUB_WORKFLOW";
-
-
-      #       # *Pusher: @${{github.actor}}, workflow: ${{github.workflow}}
-      #       # #### Lint \`${{steps.linter.outcome}}\`
-      #       # #### test \`${{steps.test.outcome}}\`
-      #       # #### build \`${{steps.build.outcome}}\`
-      #       # #### artifact \`${{steps.archive_artifact.outcome}}\`          
+            echo "Workflow: $GITHUB_WORKFLOW";  
 
       #       # await github.rest.issues.createComment({
       #       #   issue_number: context.issue.number, //PR ID 
