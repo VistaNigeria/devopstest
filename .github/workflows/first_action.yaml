@@ -67,10 +67,10 @@ jobs:
 
       - name: update Comment on PR
         run: |
-            echo "${{ steps.linter.conclusion }}"
-            echo "${{ steps.test.conclusion}}"
-            echo "${{ steps.build.conclusion}}"
-            echo "${{ steps.archive_artifact.conclusion }}"
+            echo "linter conclusion: ${{ steps.linter.conclusion }}"
+            echo "test outcome: ${{ steps.test.outcome}}"
+            echo "build output: ${{ steps.build.outputs}}"
+            echo "artifact conclusion: ${{ steps.archive_artifact.conclusion }}"
             echo "Welcome, new contributor!"
             echo "Run ID: $GITHUB_RUN_ID"
             echo "Run NUmber: $GITHUB_RUN_NUMBER"
