@@ -65,17 +65,30 @@ jobs:
             !node_modules
           retention-days: 1
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+        
+      - name: UPDATE README
+        id: readme
+        run: |
+          pip install readmeai
+          readmeai --repository https://github.com/eli64s/readme-ai --api openai
+
       - name: update Comment on PR
         run: |
-            echo "linter output: ${{ toJson(steps.linter) }}";
-            echo "test output: ${{ toJson(steps.test)}}";
-            echo "build output: ${{ toJson(steps.build)}}";
-            echo "artifact output: ${{ toJson(steps.archive_artifact) }}";
-            echo "Welcome, new contributor!";
-            echo "Run ID: $GITHUB_RUN_ID";
-            echo "Run NUmber: $GITHUB_RUN_NUMBER";
-            echo "Actor: $GITHUB_ACTOR";
-            echo "Workflow: $GITHUB_WORKFLOW";  
+          echo "linter output: ${{ toJson(steps.linter) }}";
+          echo "test output: ${{ toJson(steps.test) }}";
+          echo "build output: ${{ toJson(steps.build) }}";
+          echo "artifact output: ${{ toJson(steps.archive_artifact) }}";
+          echo "readme output: ${{ toJson(steps.readme) }}";
+          echo "Welcome, new contributor!";
+          echo "Run ID: $GITHUB_RUN_ID";
+          echo "Run NUmber: $GITHUB_RUN_NUMBER";
+          echo "Actor: $GITHUB_ACTOR";
+          echo "Workflow: $GITHUB_WORKFLOW";
+
 
       #       # await github.rest.issues.createComment({
       #       #   issue_number: context.issue.number, //PR ID 
