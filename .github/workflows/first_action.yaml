@@ -9,6 +9,8 @@ env:
     github_token: ${{ secrets.GITHUB_TOKEN }}
     GITHUB_RUN_ID: ${{github.run_id}}
     GITHUB_RUN_NUMBER: ${{github.run_number}}
+    GITHUB_ACTOR: ${{github.actor}}
+    GITHUB_WORKFLOW: ${{github.workflow}}
 
 jobs:
   build:
@@ -68,13 +70,15 @@ jobs:
 
       - name: update Comment on PR
         run: |
-            echo "linter output: ${{ toJson(steps.linter) }}"
-            echo "test output: ${{ toJson(steps.test)}}"
-            echo "build output: ${{ toJson(steps.build)}}"
-            echo "artifact output: ${{ toJson(steps.archive_artifact) }}"
-            echo "Welcome, new contributor!"
-            echo "Run ID: $GITHUB_RUN_ID"
-            echo "Run NUmber: $GITHUB_RUN_NUMBER"
+            echo "linter output: ${{ toJson(steps.linter) }}";
+            echo "test output: ${{ toJson(steps.test)}}";
+            echo "build output: ${{ toJson(steps.build)}}";
+            echo "artifact output: ${{ toJson(steps.archive_artifact) }}";
+            echo "Welcome, new contributor!";
+            echo "Run ID: $GITHUB_RUN_ID";
+            echo "Run NUmber: $GITHUB_RUN_NUMBER";
+            echo "Actor: $GITHUB_ACTOR";
+            echo "Workflow: $GITHUB_WORKFLOW";
 
 
       #       # *Pusher: @${{github.actor}}, workflow: ${{github.workflow}}
