@@ -1,5 +1,9 @@
 name: First CICD
-on: [push, pull_request]
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
 
 env:
     github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -20,7 +24,7 @@ jobs:
       - name: Install Node.js dependencies
         run: npm ci
 
-      - name: Install deprndencies
+      - name: Install dependencies
         run: |
             npm install -g express-generator
             npm install express 
@@ -43,7 +47,7 @@ jobs:
       - name: Run test
         id: test
         continue-on-error: true
-        run: npm test
+        run: npm run test
 
       - name: Archive Artifact
         id: archive_artifact
@@ -53,32 +57,31 @@ jobs:
           name: hello-artifact
           path: ./archive_folder
 
-      - name: update Comment on PR
-        uses: actions/github-script@v7
-        with:
-          script: |
-            # console.log(context.issue.number)
-            # console.log(context.issue)
-            # console.log(${{ steps.linter}})
-            # console.log(${{ steps.test}})
-            # console.log(${{ steps.build}})
-            # console.log(${{ steps.archive_artifact}})
-            # const body = `**Welcome**, new contributor!`
-            console.log($GITHUB_RUN_ID)
-            console.log($GITHUB_RUN_NUMBER)
+      # - name: update Comment on PR
+      #   uses: actions/github-script@v7
+      #   with:
+      #     script: |
+      #       # console.log(context.issue.number)
+      #       # console.log(context.issue)
+      #       # console.log(${{ steps.linter}})
+      #       # console.log(${{ steps.test}})
+      #       # console.log(${{ steps.build}})
+      #       # console.log(${{ steps.archive_artifact}})
+      #       # const body = `**Welcome**, new contributor!`
+      #       console.log($GITHUB_RUN_ID)
+      #       console.log($GITHUB_RUN_NUMBER)
 
-            # *Pusher: @${{github.actor}}, workflow: ${{github.workflow}}
-            # #### Lint \`${{steps.linter.outcome}}\`
-            # #### test \`${{steps.test.outcome}}\`
-            # #### build \`${{steps.build.outcome}}\`
-            # #### artifact \`${{steps.archive_artifact.outcome}}\`          
+      #       # *Pusher: @${{github.actor}}, workflow: ${{github.workflow}}
+      #       # #### Lint \`${{steps.linter.outcome}}\`
+      #       # #### test \`${{steps.test.outcome}}\`
+      #       # #### build \`${{steps.build.outcome}}\`
+      #       # #### artifact \`${{steps.archive_artifact.outcome}}\`          
 
-            # await github.rest.issues.createComment({
-            #   issue_number: context.issue.number, //PR ID 
-            #   owner: context.repo.owner,
-            #   repo: context.repo.repo,
-            #   body: body
-            # })
-      
-      # - name: Run the app
-      #   run: node app.js
+      #       # await github.rest.issues.createComment({
+      #       #   issue_number: context.issue.number, //PR ID 
+      #       #   owner: context.repo.owner,
+      #       #   repo: context.repo.repo,
+      #       #   body: body
+      #       # })
+
+
