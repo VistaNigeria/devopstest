@@ -31,7 +31,7 @@ jobs:
             npm install
             npm install --save-dev jest supertest
 
-      - name: Run linters
+      - name: Run linter
         id: linter
         uses: super-linter/super-linter@v6.6.0
         continue-on-error: true
@@ -50,6 +50,9 @@ jobs:
         id: test
         continue-on-error: true
         run: npm run test
+
+      - name: Create a temporary artifact downloads folder
+        run: mkdir archive_folder
 
       - name: Archive Artifact
         id: archive_artifact
