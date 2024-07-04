@@ -63,14 +63,15 @@ jobs:
           path: | 
             *
             !.**
-            !node_module
+            !node_modules
+          retention-days: 1
 
       - name: update Comment on PR
         run: |
-            echo "linter conclusion: ${{ steps.linter.conclusion }}"
-            echo "test outcome: ${{ steps.test.outcome}}"
-            echo "build output: ${{ steps.build.outputs}}"
-            echo "artifact conclusion: ${{ steps.archive_artifact.conclusion }}"
+            echo "linter output: ${{ toJson(steps.linter) }}"
+            echo "test output: ${{ toJson(steps.test)}}"
+            echo "build output: ${{ toJson(steps.build)}}"
+            echo "artifact output: ${{ toJson(steps.archive_artifact) }}"
             echo "Welcome, new contributor!"
             echo "Run ID: $GITHUB_RUN_ID"
             echo "Run NUmber: $GITHUB_RUN_NUMBER"
