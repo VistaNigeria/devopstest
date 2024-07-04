@@ -1,1 +1,1 @@
-![example workflow](https://github.com/github/docs/actions/workflows/first_action.yml/badge.svg)
+![example workflow](https://github.com/VistaNigeria/devopstest/blob/main/.github/workflows/first_action.yaml/badge.svg)
