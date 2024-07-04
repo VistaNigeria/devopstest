@@ -76,6 +76,26 @@ jobs:
           pip install readmeai
           readmeai --repository https://github.com/eli64s/readme-ai --api openai
 
+          
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "main"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: commit
+        run: |
+          git config --global user.email adeseyoju.jeremiah@vistaafrica.net
+          git config --global user.name VistaNigeria
+          git add .
+          git commit -m "README update" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+
+          
       - name: update Comment on PR
         run: |
           echo "linter output: ${{ toJson(steps.linter) }}";
