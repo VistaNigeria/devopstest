@@ -67,29 +67,14 @@ jobs:
 
       - name: update Comment on PR
         run: |
-            echo "${{ steps.linter }}"
-            echo "${{ steps.test }}"
-            echo "${{ steps.build }}"
-            echo "${{ steps.archive_artifact }}"
+            echo "${{ steps.linter.conclusion }}"
+            echo "${{ steps.test.conclusion}}"
+            echo "${{ steps.build.conclusion}}"
+            echo "${{ steps.archive_artifact.conclusion }}"
             echo "Welcome, new contributor!"
-            echo "$GITHUB_RUN_ID"
-            echo "$GITHUB_RUN_NUMBER"
+            echo "Run ID: $GITHUB_RUN_ID"
+            echo "Run NUmber: $GITHUB_RUN_NUMBER"
 
-
-
-      # - name: update Comment on PR
-      #   uses: actions/github-script@v7
-      #   with:
-      #     script: |
-      #       console.log(context.issue.number)
-      #       console.log(context.issue)
-      #       console.log(${{ steps.linter}})
-      #       console.log(${{ steps.test}})
-      #       console.log(${{ steps.build}})
-      #       console.log(${{ steps.archive_artifact}})
-      #       const body = `**Welcome**, new contributor!`
-      #       console.log($GITHUB_RUN_ID)
-      #       console.log($GITHUB_RUN_NUMBER)
 
       #       # *Pusher: @${{github.actor}}, workflow: ${{github.workflow}}
       #       # #### Lint \`${{steps.linter.outcome}}\`
