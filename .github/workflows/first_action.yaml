@@ -110,7 +110,7 @@ jobs:
 
       - name: update Comment on PR
         run: |
-          echo -e "linter output: ${{ toJson(steps.linter) }}\n
+          printf "linter output: ${{ toJson(steps.linter) }}\n
           test output: ${{ toJson(steps.test) }}\n
           build output: ${{ toJson(steps.build) }}\n
           artifact output: ${{ toJson(steps.archive_artifact) }}\n
@@ -124,19 +124,6 @@ jobs:
           Actor: $GITHUB_ACTOR\n
           Workflow: $GITHUB_WORKFLOW"
 
-
-          # - name: update Comment on PR
-          # run: |
-          #   echo "linter output: ${{ toJson(steps.linter) }}";
-          #   echo "test output: ${{ toJson(steps.test) }}";
-          #   echo "build output: ${{ toJson(steps.build) }}";
-          #   echo "artifact output: ${{ toJson(steps.archive_artifact) }}";
-          #   echo "readme output: ${{ toJson(steps.readme) }}";
-          #   echo "Welcome, new contributor!";
-          #   echo "Run ID: $GITHUB_RUN_ID";
-          #   echo "Run NUmber: $GITHUB_RUN_NUMBER";
-          #   echo "Actor: $GITHUB_ACTOR";
-          #   echo "Workflow: $GITHUB_WORKFLOW";
 
       #       # await github.rest.issues.createComment({
       #       #   issue_number: context.issue.number, //PR ID 
