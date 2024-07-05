@@ -77,9 +77,9 @@ jobs:
         id: readme
         continue-on-error: true
         run: |
-          pip install generate-readme
-          readme_generator.py [-h] --project-name PROJECT_NAME --description DESCRIPTION --installation INSTALLATION --usage USAGE --contribution CONTRIBUTION --contact CONTACT
-
+          sed " [![Test](https://img.shields.io/badge/Test-${{ steps.test.outcome }}-93b023?&style=for-the-badge&logo=qgis&logoColor=white)] | 
+                [![Lint](https://img.shields.io/badge/Test-${{ steps.linter.conclusion }}-93b023?&style=for-the-badge&logo=qgis&logoColor=white)]
+          " README.md
           
       - name: pull-request
         uses: repo-sync/pull-request@v2
@@ -90,7 +90,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: commit
-        id: commit
+        id: commit_change
         continue-on-error: true
         run: |
           git config --global user.email adeseyoju.jeremiah@vistaafrica.net
@@ -106,8 +106,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
 
-
-
       - name: update Comment on PR
         run: |
           printf "linter output: ${{ toJson(steps.linter) }}\n
@@ -116,7 +114,7 @@ jobs:
           artifact output: ${{ toJson(steps.archive_artifact) }}\n
           readme output: ${{ toJson(steps.readme) }}\n
           pullRequest output: ${{ toJson(steps.pull_request) }}\n
-          commit output: ${{ toJson(steps.commit) }}\n
+          commit output: ${{ toJson(steps.commit_change) }}\n
           pushChanges output: ${{ toJson(steps.push_changes) }}\n
           Welcome, new contributor!\n
           Run ID: $GITHUB_RUN_ID\n
