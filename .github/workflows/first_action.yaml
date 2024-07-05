@@ -77,8 +77,8 @@ jobs:
         id: readme
         continue-on-error: true
         run: |
-          pip install readmeai
-          readmeai --repository https://github.com/VistaNigeria/devopstest/blob/main/README.md --api openai
+          pip install generate-readme
+          readme_generator.py [-h] --project-name PROJECT_NAME --description DESCRIPTION --installation INSTALLATION --usage USAGE --contribution CONTRIBUTION --contact CONTACT
 
           
       - name: pull-request
