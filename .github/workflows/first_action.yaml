@@ -77,7 +77,7 @@ jobs:
         id: readme
         continue-on-error: true
         run: |
-          echo "![Test](https://img.shields.io/badge/Test-${{steps.test.outcome}}-93b023?&style=for-the-badge)   
+          echo "![Test](https://img.shields.io/badge/Test-${{steps.test.outcome}}-93b023?&style=for-the-badge) | 
                 ![Lint](https://img.shields.io/badge/Lint-${{steps.linter.conclusion}}-blue?&style=for-the-badge)" > README.md
           
       - name: pull-request
@@ -105,14 +105,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
 
-      - name: Deploy to GH Pages
-        continue-on-error: true
-        uses: peaceiris/actions-gh-pages@v4
-        id: page_publish
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-
       - name: update Comment on PR
         run: |
           printf "linter output: ${{toJson(steps.linter)}}\n
@@ -129,3 +121,38 @@ jobs:
           Run NUmber: $GITHUB_RUN_NUMBER\n
           Actor: $GITHUB_ACTOR\n
           Workflow: $GITHUB_WORKFLOW"
+      
+      # - name: Deploy to GH Pages
+      #   continue-on-error: true
+      #   uses: peaceiris/actions-gh-pages@v4
+      #   id: page_publish
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./public
+          
+
+  # Deploy job
+  deploy:
+    # Add a dependency to the build job
+    needs: build
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action      
+      
+      - name: update Comment on Deployment
+        run: |
+          printf "publish page: ${{ steps.deployment.outputs.page_url }}"
