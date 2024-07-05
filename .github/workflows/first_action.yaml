@@ -77,9 +77,8 @@ jobs:
         id: readme
         continue-on-error: true
         run: |
-          sed " [![Test](https://img.shields.io/badge/Test-${{ steps.test.outcome }}-93b023?&style=for-the-badge&logo=qgis&logoColor=white)] | 
-                [![Lint](https://img.shields.io/badge/Test-${{ steps.linter.conclusion }}-93b023?&style=for-the-badge&logo=qgis&logoColor=white)]
-          " README.md
+          echo "![Test](https://img.shields.io/badge/Test-${{steps.test.outcome}}-93b023?&style=for-the-badge) | 
+                ![Lint](https://img.shields.io/badge/Test-${{steps.linter.conclusion}}-93b023?&style=for-the-badge)" >> README.md
           
       - name: pull-request
         uses: repo-sync/pull-request@v2
@@ -96,7 +95,7 @@ jobs:
           git config --global user.email adeseyoju.jeremiah@vistaafrica.net
           git config --global user.name VistaNigeria
           git add .
-          git commit -m "README update" -a
+          git commit -m "README update"
         
       - name: Push changes
         id: push_changes
