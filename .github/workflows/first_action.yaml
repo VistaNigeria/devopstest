@@ -77,7 +77,7 @@ jobs:
         id: readme
         run: |
           pip install readmeai
-          readmeai --repository https://github.com/eli64s/readme-ai --api openai
+          readmeai --repository https://github.com/VistaNigeria/devopstest/blob/main/README --api openai
 
           
       - name: pull-request
