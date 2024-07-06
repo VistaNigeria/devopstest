@@ -80,7 +80,7 @@ jobs:
         continue-on-error: true
         run: |
           echo "![Test](https://img.shields.io/badge/Test-${{steps.test.outcome}}-93b023?&style=for-the-badge) | 
-                ![Lint](https://img.shields.io/badge/Lint-${{steps.linter.conclusion}}-blue?&style=for-the-badge)" > README.md
+                ![Lint](https://img.shields.io/badge/Lint-${{steps.linter.outcome}}-blue?&style=for-the-badge)" > README.md
       
           
       - name: pull-request
