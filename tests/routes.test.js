@@ -14,7 +14,7 @@ describe('New Endpoint', () => {
     const res = await request(app)
       .get('/node-test')
     expect(res.body).toEqual({
-      resource: 'nodes',
+      resource: 'node',
       users: 1005,
       shape: 'rectangle'
     })

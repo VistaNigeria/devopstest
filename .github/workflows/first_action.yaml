@@ -84,7 +84,7 @@ jobs:
       
           
       - name: pull-request
-        if: ${{steps.test.outcome}} == "success"
+        if: ${{steps.test.outcome == "success" }}
         uses: repo-sync/pull-request@v2
         id: pull_request
         continue-on-error: true
