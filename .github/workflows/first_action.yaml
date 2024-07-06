@@ -97,8 +97,8 @@ jobs:
         run: |
           git config --global user.email adeseyoju.jeremiah@vistaafrica.net
           git config --global user.name VistaNigeria
-          git add README.md
-          git commit -m "README update"
+          git add .
+          git commit -m "new commit from $GITHUB_ACTOR, no: $GITHUB_RUN_NUMBER"
         
       - name: Push changes
         if: ${{steps.test.outcome == 'success'}}
@@ -109,7 +109,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
 
-      - name: update Comment on PR
+      - name: update Comments
         run: |
           printf "linter output: ${{toJson(steps.linter)}}\n
           test output: ${{toJson(steps.test)}}\n
