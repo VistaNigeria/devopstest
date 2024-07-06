@@ -84,7 +84,6 @@ jobs:
       
           
       - name: pull-request
-        if: ${{steps.test.outcome == 'success'}}
         uses: repo-sync/pull-request@v2
         id: pull_request
         continue-on-error: true
@@ -102,6 +101,7 @@ jobs:
           git commit -m "README update"
         
       - name: Push changes
+        if: ${{steps.test.outcome == 'success'}}
         continue-on-error: true
         uses: ad-m/github-push-action@master
         id: push_changes
