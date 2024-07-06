@@ -17,6 +17,8 @@ jobs:
     permissions:                
       contents: write           
       pull-requests: write 
+    outputs:
+      output1: ${{ steps.test.conclusion }}
 
     steps:
       - uses: actions/checkout@v4
@@ -94,7 +96,7 @@ jobs:
         run: |
           git config --global user.email adeseyoju.jeremiah@vistaafrica.net
           git config --global user.name VistaNigeria
-          git add .
+          git add README.md
           git commit -m "README update"
         
       - name: Push changes
@@ -115,12 +117,13 @@ jobs:
           pullRequest output: ${{toJson(steps.pull_request)}}\n
           commit output: ${{toJson(steps.commit_change)}}\n
           pushChanges output: ${{toJson(steps.push_changes)}}\n
-          publish output: ${{toJson(steps.page_publish)}}\n
           Welcome, new contributor!\n
           Run ID: $GITHUB_RUN_ID\n
           Run NUmber: $GITHUB_RUN_NUMBER\n
           Actor: $GITHUB_ACTOR\n
           Workflow: $GITHUB_WORKFLOW"
+        
+        
       
       # - name: Deploy to GH Pages
       #   continue-on-error: true
@@ -152,17 +155,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Pages
         uses: actions/configure-pages@v3
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
           path: './public/hello.html'
+
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 
-      
+        uses: actions/deploy-pages@v4
+
       - name: update Comment on Deployment
         run: |
           printf "publish page: ${{ steps.deployment.outputs.page_url }}"
